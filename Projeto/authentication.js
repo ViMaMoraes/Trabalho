@@ -13,7 +13,7 @@ function loginFirebase(email, senha) {
         .signInWithEmailAndPassword(email, senha)
         .then(result => {
             alert(`Bem vindo, ${JSON.stringify(result.user.email)}`)
-            window.location.href = `${baseURL}/HTML/Fatec/Projeto/home.html`
+            window.location.href = `${baseURL}/Login/home.html`
         })
         .catch(error => {
             var mensagemErro = ''
@@ -46,7 +46,7 @@ function novoUsuario(email, senha) {
         .then((result) => {
             alert(`Bem vindo, ${JSON.stringify(result.user.email)}`)
             // Direcionameos o usuário para a tela inicial
-            window.location.href = `${baseURL}/HTML/Fatec/Projeto/index.html`
+            window.location.href = `${baseURL}/Login/index.html`
         })
         .catch(error => {
             alert(`Nâo foi possível cadastrar o usuário. erro: ${error.message}`)
@@ -67,9 +67,12 @@ function verificaLogado() {
 }
 function logout() {
     alert('Saindo!')
-    window.location.href = `${baseURL}/HTML/Fatec/Projeto/index.html`
+    window.location.href = `${baseURL}/Login/index.html`
 }
-
+/**
+ * mostrarOcultarSenha
+ * Verifica o type da senha, ao clicar no check ele altera o type de password para text.
+ */
 function mostrarOcultarSenha() {
     var senha = document.getElementById("senhaInput");
     if (senha.type == "password") {

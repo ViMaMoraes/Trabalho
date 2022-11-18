@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <!--Boostrap-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="Conteudo/estilo.css">
+</head>
+
+<body onload="verificaLogado();obtemDados('pessoas')">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Bem vindo </a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <!--<a class="nav-link" href="#">TENTAR ENCAIXAR O NOME DO USUÁRIO AQUI</a>-->
+                    </li>
+                </ul>
+            </div>
+            <div class="text-right">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <button class="btn btn-danger" onclick="logout()">Logout</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+                <h3 class="text-info">👤Cadastro de Pessoas</h3>
+                <form id="formCadastro">
+                    <div class="form-group">
+                        <label for="nome">Nome</label>
+                        <input type="text" class="form-control" name="nome" id="nome" placeholder="Nome Completo"
+                            autofocus />
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" name="email" id="email"
+                            placeholder="alguem@email.com.br" />
+                    </div>
+                    <div class="form-group">
+                        <label for="salario">Salário</label>
+                        <input type="number" class="form-control" name="salario" id="salario" min="0" step="0.01" />
+                    </div>
+                    <div class="form-group">
+                        <label for="nascimento">Data de Nascimento</label>
+                        <input type="date" class="form-control" name="nascimento" id="nascimento" />
+                    </div>
+                    <div class="form-group m-2">
+                        <label for="sexo">Sexo</label>
+                        <input type="radio" class="btn-check" name="sexo" id="sexoM" value="Masculino" checked>
+                        <label class="btn btn-outline-info" for="sexoM">Masculino</label>
+                        <input type="radio" class="btn-check" name="sexo" id="sexoF" value="Feminino">
+                        <label class="btn btn-outline-danger" for="sexoF">Feminino</label>
+                    </div>
+                    <div class="form-group">
+                        <!-- campo escondio, mas será enviado no Firebase-->
+                        <input type="hidden" name="id" id="id" />
+                    </div>
+                    <button class="btn btn-success my-4" onclick="salvar(event, 'pessoas')">💾 Salvar</button>
+                    <button class="btn btn-primary my-4">🧹 Limpar</button>
+                </form>
+            </div>
+            <div class="col-md-8">
+                <h3 class="text-primary">🗒️Listagem de Pessoas</h3>
+                <table id="tabelaDados" class="table table-bordered table-striped">
+                    <!-- Conteúdo do Firebase será carregado aqui-->
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-database.js"></script>
+    <!-- Bootstrap 5 JS-->
+    <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js "></script>
+    <!--Carregando o nosso JS-->
+    <script src="Projeto/authentication.js"></script>
+    <script src="Projeto/Dados.js"></script>
+    <script src="Projeto/firebase.js"></script>
+</body>
+
+</html>
