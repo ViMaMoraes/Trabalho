@@ -19,10 +19,6 @@
             <h3 class="card-title">Novo Usuário</h3>
             <form id="formCadastro">
                 <div class="form-floating mb-3">
-                    <input type="email" class="form-control" autofocus placeholder="Email do Usuário" id="Userinput" />
-                    <label for="Userinput">Usuário</label>
-                </div>
-                <div class="form-floating mb-3">
                     <input type="email" class="form-control" autofocus placeholder="Email do Usuário" id="emailInput" />
                     <label for="emailInput">E-mail</label>
                 </div>
@@ -32,7 +28,7 @@
                     <input type="checkbox" onclick="mostrarOcultarSenha()">Mostrar Senha
                 </div>
                 <div class="mb-3">
-                    <button class="w-100 btn btn-primary" onclick="event.preventDefault();loginFirebase(document.getElementById('emailInput').value,
+                    <button class="w-100 btn btn-primary" onclick="event.preventDefault();novoUsuario(document.getElementById('emailInput').value,
                     document.getElementById('senhaInput').value)">💾 Salvar</button>
                 </div>
                 <a href="index.html">Acesse com seu usuário</a>

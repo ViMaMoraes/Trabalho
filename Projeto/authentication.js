@@ -65,6 +65,10 @@ function verificaLogado() {
         }
     })
 }
+/**
+ * logout
+ * Ao apertar o botão de logout na pagina home, ele irá sair e voltar para a pagina de login.
+ */
 function logout() {
     alert('Saindo!')
     window.location.href = `${baseURL}/Login/index.html`
