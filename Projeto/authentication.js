@@ -7,6 +7,10 @@ const baseURL = "http://127.0.0.1:5500"
  * @param {String} senha - senha do usuário
  * @return {object} - Objeto com o usupario logado
  */
+//-----------------------------------------------------\
+// Link onde tem os erros da função code               |
+// https://firebase.google.com/docs/auth/admin/errors  |
+//-----------------------------------------------------/
 function loginFirebase(email, senha) {
     firebase
         .auth()
@@ -16,22 +20,22 @@ function loginFirebase(email, senha) {
             window.location.href = `${baseURL}/Login/home.html`
         })
         .catch(error => {
-            var mensagemErro = ''
+            let mensagem = '';
             switch (error.code) {
                 case 'auth/invalid-email':
-                    mensagemErro = 'O e-mail informado é inválido!'
+                    mensagem = 'Formato de E-mail invalido!'
                     break;
-                case 'aluth/email-already-exists':
-                    mensagemErro = 'O e-mail informado já está sendo utilizado!'
+                case 'auth/user-not-found':
+                    mensagem = 'E-mail não cadastrado!'
+                    break;
+                case 'auth/wrong-password':
+                    mensagem = 'Senha Incorreta, digite novamente!'
                     break;
                 default:
-                    mensagemErro = error.message
+                    mensagem = 'tente novamente!'
             }
-            //-----------------------------------------------------\
-            // Link onde tem os erros da função code               |
-            // https://firebase.google.com/docs/auth/admin/errors  |
-            //-----------------------------------------------------/
-            alert(`Erro ao efetuar o login: ${mensagemErro}`)
+            alert(`Não foi possivel cadastrar o usuário: ${mensagem}`)
+            console.log(error.message);
         })
 }
 /**
@@ -44,12 +48,27 @@ function loginFirebase(email, senha) {
 function novoUsuario(email, senha) {
     firebase.auth().createUserWithEmailAndPassword(email, senha)
         .then((result) => {
-            alert(`Bem vindo, ${JSON.stringify(result.user.email)}`)
-            // Direcionameos o usuário para a tela inicial
+            alert(`Usuario, ${JSON.stringify(result.user.email)}, Cadastrado com sucesso!`)
             window.location.href = `${baseURL}/Login/index.html`
         })
         .catch(error => {
-            alert(`Nâo foi possível cadastrar o usuário. erro: ${error.message}`)
+            let mensagem = '';
+
+            switch (error.code) {
+                case 'auth/invalid-email':
+                    mensagem = 'O E-mail informado é inválido!'
+                    break;
+                case 'auth/email-already-in-use':
+                    mensagem = 'O e-mail informado já está sendo utilizado!'
+                    break;
+                case 'auth/weak-password':
+                    mensagem = 'Senha Invalida, Por favor insira 6 digitos!'
+                    break;
+                default:
+                    mensagem = 'tente novamente!'
+            }
+            alert(`Não foi possivel cadastrar o usuário: ${mensagem}`)
+            console.log(error.message);
         })
 }
 /**
