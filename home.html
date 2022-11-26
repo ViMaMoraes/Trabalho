@@ -9,48 +9,41 @@
     <!--Boostrap-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <link rel="stylesheet" href="Conteudo/estilo.css">
+    <link rel="stylesheet" href="Projeto/estilo.css">
 </head>
 
-<body onload="verificaLogado();obtemDados('pessoas')">
+<body onload="verificaLogado();obtemDados('animais')">
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav id="nav" class="navbar navbar-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Bem vindo </a>
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <!--<a class="nav-link" href="#">TENTAR ENCAIXAR O NOME DO USUÁRIO AQUI</a>-->
-                    </li>
-                </ul>
-            </div>
+            <a class="navbar-brand" href="#"><strong>Área de cadastro do seu pet</strong></a>
             <div class="text-right">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <button class="btn btn-danger" onclick="logout()">Logout</button>
+                        <button class="btn btn-dark" onclick="logout()">Logout</button>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-    <div class="container-fluid">
+    <div id="back" class="container-fluid">
         <div class="row">
             <div class="col-md-4">
-                <h3 class="text-info">👤Cadastro de Pessoas</h3>
+                <h3 class="text-black">🐱 Cadastre o pet</h3>
                 <form id="formCadastro">
                     <div class="form-group">
                         <label for="nome">Nome</label>
-                        <input type="text" class="form-control" name="nome" id="nome" placeholder="Nome Completo"
+                        <input type="text" class="form-control" name="nome" id="nome" placeholder="Nome do pet"
                             autofocus />
                     </div>
                     <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" class="form-control" name="email" id="email"
-                            placeholder="alguem@email.com.br" />
+                        <label for="raca">Raça</label>
+                        <input type="raca" class="form-control" name="raca" id="raca" placeholder="Raça do pet" />
                     </div>
                     <div class="form-group">
-                        <label for="salario">Salário</label>
-                        <input type="number" class="form-control" name="salario" id="salario" min="0" step="0.01" />
+                        <label for="salario">Peso</label>
+                        <input type="number" class="form-control" name="peso" id="peso" min="0" step="0.50"
+                            placeholder="Peso do pet" />
                     </div>
                     <div class="form-group">
                         <label for="nascimento">Data de Nascimento</label>
@@ -59,20 +52,20 @@
                     <div class="form-group m-2">
                         <label for="sexo">Sexo</label>
                         <input type="radio" class="btn-check" name="sexo" id="sexoM" value="Masculino" checked>
-                        <label class="btn btn-outline-info" for="sexoM">Masculino</label>
+                        <label class="btn btn-outline-info" for="sexoM">Macho</label>
                         <input type="radio" class="btn-check" name="sexo" id="sexoF" value="Feminino">
-                        <label class="btn btn-outline-danger" for="sexoF">Feminino</label>
+                        <label class="btn btn-outline-danger" for="sexoF">Fêmea</label>
                     </div>
                     <div class="form-group">
                         <!-- campo escondio, mas será enviado no Firebase-->
                         <input type="hidden" name="id" id="id" />
                     </div>
-                    <button class="btn btn-success my-4" onclick="salvar(event, 'pessoas')">💾 Salvar</button>
+                    <button class="btn btn-success my-4" onclick="salvar(event, 'animais')">💾 Salvar</button>
                     <button class="btn btn-primary my-4">🧹 Limpar</button>
                 </form>
             </div>
             <div class="col-md-8">
-                <h3 class="text-primary">🗒️Listagem de Pessoas</h3>
+                <h3 class="text-black">🐶 Lista de cadastro de pet</h3>
                 <table id="tabelaDados" class="table table-bordered table-striped">
                     <!-- Conteúdo do Firebase será carregado aqui-->
                 </table>

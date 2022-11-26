@@ -10,7 +10,7 @@ function salvar(event, collection) {
     event.preventDefault() // evita que o formulário seja recarregado
     //Verificando os campos obrigatórios
     if (document.getElementById('nome').value === '') { alert('⚠️ É obrigatório infromar o nome!') }
-    else if (document.getElementById('email').value === '') { alert('⚠️ É obrigatório infromar o email!') }
+    else if (document.getElementById('raca').value === '') { alert('⚠️ É obrigatório infromar o email!') }
     else if (document.getElementById('nascimento').value === '') { alert('⚠️ É obrigatório infromar a data de Nascimento!') }
     else if (document.getElementById('id').value !== '') {
         alterar(event, collection)
@@ -63,9 +63,9 @@ function obtemDados(collection) {
         cabecalho.className = 'table-info'
         cabecalho.insertCell().textContent = 'Nome'
         cabecalho.insertCell().textContent = 'Nascimento'
-        cabecalho.insertCell().textContent = 'Email'
+        cabecalho.insertCell().textContent = 'raca'
         cabecalho.insertCell().textContent = 'Sexo'
-        cabecalho.insertCell().textContent = 'Salário'
+        cabecalho.insertCell().textContent = 'peso'
         cabecalho.insertCell().textContent = 'Opções'
 
         snapshot.forEach(item => {
@@ -77,9 +77,9 @@ function obtemDados(collection) {
             let novaLInha = tabela.insertRow()
             novaLInha.insertCell().textContent = item.val().nome
             novaLInha.insertCell().textContent = new Date(item.val().nascimento).toLocaleDateString()
-            novaLInha.insertCell().textContent = item.val().email
+            novaLInha.insertCell().textContent = item.val().raca
             novaLInha.insertCell().textContent = item.val().sexo
-            novaLInha.insertCell().textContent = item.val().salario
+            novaLInha.insertCell().textContent = item.val().peso
             novaLInha.insertCell().innerHTML =
                 `
             <button class='btn btn-danger' title='Remove o registro corrente' onclick=remover('${db}','${id}')>🗑️</button>
