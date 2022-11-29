@@ -1,4 +1,6 @@
-const baseURL = "http://127.0.0.1:5500"
+const baseURL = window.location.hostname.includes('127.0.0.1')
+    ? 'http://127.0.0.1:5500/Login'
+    : 'https://fatecitu-pi.firebaseapp.com'
 
 /**
  * loginFirebase
@@ -7,17 +9,13 @@ const baseURL = "http://127.0.0.1:5500"
  * @param {String} senha - senha do usuário
  * @return {object} - Objeto com o usupario logado
  */
-//-----------------------------------------------------\
-// Link onde tem os erros da função code               |
-// https://firebase.google.com/docs/auth/admin/errors  |
-//-----------------------------------------------------/
 function loginFirebase(email, senha) {
     firebase
         .auth()
         .signInWithEmailAndPassword(email, senha)
         .then(result => {
             alert(`Bem vindo, ${JSON.stringify(result.user.email)}`)
-            window.location.href = `${baseURL}/Login/home.html`
+            window.location.href = `${baseURL}/home.html`
         })
         .catch(error => {
             let mensagem = '';
@@ -32,9 +30,9 @@ function loginFirebase(email, senha) {
                     mensagem = 'Senha Incorreta, digite novamente!'
                     break;
                 default:
-                    mensagem = 'tente novamente!'
+                    mensagem = 'Tente novamente!'
             }
-            alert(`Não foi possivel cadastrar o usuário: ${mensagem}`)
+            alert(`Não foi possivel obter acesso: ${mensagem}`)
             console.log(error.message);
         })
 }
@@ -49,7 +47,7 @@ function novoUsuario(email, senha) {
     firebase.auth().createUserWithEmailAndPassword(email, senha)
         .then((result) => {
             alert(`Usuario, ${JSON.stringify(result.user.email)}, Cadastrado com sucesso!`)
-            window.location.href = `${baseURL}/Login/index.html`
+            window.location.href = `${baseURL}/index.html`
         })
         .catch(error => {
             let mensagem = '';
@@ -65,32 +63,45 @@ function novoUsuario(email, senha) {
                     mensagem = 'Senha Invalida, Por favor insira 6 digitos!'
                     break;
                 default:
-                    mensagem = 'tente novamente!'
+                    mensagem = 'Tente novamente!'
             }
             alert(`Não foi possivel cadastrar o usuário: ${mensagem}`)
             console.log(error.message);
         })
 }
 /**
- * verificaLogado
- * Verifica se o usuário está logado no sistema
- * @param {Null}
+ * verificaLogado.
+ * Verifica se o usuário deve ter acesso a página que será carregada
+ * @return {null} - Caso não esteja logado, redireciona para o início
  */
 function verificaLogado() {
-    firebase.auth().onAuthStateChanged(user => {
-        if (!user) {
-            console.log('Acesso inválido. Redirecionando...')
-            window.location.href = baseURL
-        }
-    })
+    firebase
+        .auth()
+        .onAuthStateChanged(user => {
+            if (user) {
+                console.log('Usuário logado!')
+            } else {
+                console.log('Usuário não logado. Redirecionando...')
+                window.location.href = `${baseURL}/index.html`
+            }
+        })
 }
 /**
- * logout
- * Ao apertar o botão de logout na pagina home, ele irá sair e voltar para a pagina de login.
+ * logoutFirebase.
+ * Realiza o logout do usuário no Firebase.
+ * @return {null} - Redireciona o usuário para o login
  */
 function logout() {
-    alert('Saindo!')
-    window.location.href = `${baseURL}/Login/index.html`
+    firebase
+        .auth()
+        .signOut()
+        .then(function () {
+            alert('Realizando o logout do usuário!')
+            window.location.href = baseURL
+        })
+        .catch(function (error) {
+            alert(`Não foi possível efetuar o logout, Erro: ${error.message}`)
+        });
 }
 /**
  * mostrarOcultarSenha

@@ -25,17 +25,6 @@ function incluir(event, collection) {
     const data = new FormData(form)
     //Obtendo os valores dos campos
     const values = Object.fromEntries(data.entries())
-    //console.log(`os dados são:`)
-    //console.log(values)
-    //O retorno é uma Promise (promessa)
-    /*let nome = document.getElementById('nome').value
-    let nascimento = document.getElementById('nascimento').value
-    let email = document.getElementById('email').value
-    const pessoa = {
-        nome: nome,
-        nascimento: nascimento,
-        email: email
-    }*/
 
     return firebase.database().ref(collection).push(values)
         .then(() => {
@@ -106,9 +95,9 @@ function totalRegistros(collection) {
     var retorno = '...'
     firebase.database().ref(collection).on('value', (snapshot) => {
         if (snapshot.numChildren() == 0) {
-            retorno = 'Ainda não há nenhum registro cadastrado!'
+            retorno = 'Ainda não existe nenhum pet cadastrado'
         } else {
-            retorno = `Total de Registros: ${snapshot.numChildren()}`
+            retorno = `Total de Pet's: ${snapshot.numChildren()}`
         }
     })
     return retorno
@@ -143,9 +132,9 @@ function carregaDadosAlteracao(db, id) {
                 //Se for igual ao id, iremos igualar os campos
                 document.getElementById('id').value = item.ref.path.pieces_[1]
                 document.getElementById('nome').value = item.val().nome
-                document.getElementById('email').value = item.val().email
+                document.getElementById('raca').value = item.val().raca
                 document.getElementById('nascimento').value = item.val().nascimento
-                document.getElementById('salario').value = item.val().salario
+                document.getElementById('peso').value = item.val().peso
                 //Campo Sexo    
                 if (item.val().sexo === 'Masculino') {
                     document.getElementById('sexoM').checked = true
@@ -168,14 +157,15 @@ function alterar(event, collection) {
     //Enviando os dados dos campos para o Firebase
     return firebase.database().ref().child(collection + '/' + values.id).update({
         nome: values.nome,
-        email: values.email,
+        raca: values.raca,
         sexo: values.sexo,
         nascimento: values.nascimento,
-        salario: values.salario
+        peso: values.peso
     })
         .then(() => {
             alert('✅ Registro alterado com sucesso!')
             document.getElementById('formCadastro').reset()
+            document.getElementById('id').value = ''
         })
         .catch(error => {
             console.log(error.code)
